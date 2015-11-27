@@ -1,3 +1,13 @@
+'''
+' Filename		main.py
+' Author		gandie
+' License		
+' Description	The Main Entry Point of the Application
+' Version		0.0.8
+' Date			18:25 27.11.2015
+'''
+
+
 from kivy.app import App
 from kivy.uix.widget import Widget
 from kivy.uix.scatter import Scatter
@@ -5,7 +15,7 @@ from kivy.uix.button import Button
 from kivy.properties import NumericProperty, ReferenceListProperty, BooleanProperty
 from kivy.vector import Vector
 from kivy.clock import Clock
-from math import sqrt
+from math import sqrt, pow
 from kivy.graphics import Line
 from kivy.uix.boxlayout import BoxLayout
 from kivy.graphics.instructions import InstructionGroup
@@ -15,8 +25,13 @@ from kivy.core.image import Image
 from random import choice
 
 import os
-import math
+from lib.planet import Planet
+from lib.planetgame import PlanetGame
+from lib.planetgamelayout import PlanetGameLayout
+from lib.settingsbutton import SettingsButton
+from lib.utilitys import Utilitys
 
+'''
 class Planet(Widget):
     velocity_x = NumericProperty(0)
     velocity_y = NumericProperty(0)
@@ -325,7 +340,7 @@ class PlanetGameLayout(BoxLayout):
 
 class SettingsButton(Button):
     pass
-
+'''
 
 class PlanetApp(App):
     def build(self):
@@ -334,11 +349,11 @@ class PlanetApp(App):
 
         game = PlanetGame(do_rotation=False,do_translation=False)
         # Settings come in as unicode!
-        sunmass = float(App.get_running_app().config.get('planetapp','defaultsunmass'))
+        sunmass = float(Utilitys.get_app_config('planetapp','defaultsunmass'))
         game.sunmass = sunmass
-        game.gravity = float(App.get_running_app().config.get('planetapp','gravity'))
-        game.planetmass = float(App.get_running_app().config.get('planetapp','planetmass'))
-        game.resetmass = float(App.get_running_app().config.get('planetapp','resetmass'))
+        game.gravity = float(Utilitys.get_app_config('planetapp','gravity'))
+        game.planetmass = float(Utilitys.get_app_config('planetapp','planetmass'))
+        game.resetmass = float(Utilitys.get_app_config('planetapp','resetmass'))
         game.add_planet(True, (100,100), (0,0), sunmass, 10, (1,1,1))
         
         Clock.schedule_interval(game.update, 1.0 / 120.0)
